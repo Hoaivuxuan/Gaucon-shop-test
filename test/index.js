@@ -2,8 +2,8 @@
 // console.log('hoai')
 let y =10
 var x=5 
-let test = 'hello "hoai" '
-let test1 = `hello "xuan" 'hoai'`
+let test = 'hello "h" '
+let test1 = `hello "x" 'h'`
 const z =11
 document.getElementById("demo").innerHTML = test.length;
 // 

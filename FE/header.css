@@ -1,1 +1,19 @@
-body{margin:0 !important;padding:0 !important}.header-index .wrap-container{background:url(img/images-green.jpg);background-size:101% 100%;padding-bottom:20px}.header-index .wrap-container .logo img{border-radius:15px;margin-left:350px;border:0 none;max-width:100%;height:auto}.header-index .adds{background:url(img/bannertop.jpg) center center no-repeat;height:50px;display:block;text-align:center !important}
+body {
+  margin: 0 !important;
+  padding: 0 !important; }
+
+.header-index .wrap-container {
+  background: url(img/images-green.jpg);
+  background-size: 101% 100%;
+  padding-bottom: 20px; }
+  .header-index .wrap-container .logo img {
+    border-radius: 15px;
+    margin-left: 350px;
+    border: 0 none;
+    max-width: 100%;
+    height: auto; }
+.header-index .adds {
+  background: url(img/bannertop.jpg) center center no-repeat;
+  height: 50px;
+  display: block;
+  text-align: center !important; }
