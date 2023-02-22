@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import connectDB from "./config/connectDB";
 //
 import viewEngine from "./config/viewEngine";
 import initWebRouters from "./route/web";
@@ -13,6 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true}))
 
 viewEngine(app);
 initWebRouters(app);
+
+connectDB();
 
 let port = process.env.PORT || 6969;
 app.listen(port, () => {
