@@ -1,0 +1,51 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./Login.scss">
+</head> 
+<body >
+    <div className='login-background'>
+        <div className='login-container'>
+            <div className='login-content row'>
+                <div className='col-12 login-text'>Login</div>
+                <div className='col-12 username'>
+                    <input 
+                        type='text' 
+                        className='form-control' 
+                        placeholder='Email'
+                    ></input>
+                    <span id="errorEmailText" class="errorEmailText"></span>
+                </div>
+                <div className='col-12 password'>
+                    <input type='password' className='form-control' placeholder='Password'></input>
+                    <span id="errorPassText" class="errorPassText"></span>
+                </div>
+                <div className='col-12'>
+                    <button className="col-12 btn-login btn-login-form" type="submit" value="login">Login</button>
+                </div>
+                <div className='col-12 forgot-text'>
+                    <a className='f-text' href='/'>Forgot password</a>
+                </div>
+                <div className='col-12 note-text'>
+                    <span className='or-text'>Or login with</span>
+                </div>
+                <div className='col-12 social-login'>
+                    <div className='login-google'>
+                        <FontAwesomeIcon className='google' icon={faGoogle}/> 
+                    </div>
+                    <div className='login-facebook'>
+                        <FontAwesomeIcon className='facebook' icon={faFacebook}/>   
+                    </div>
+                </div>
+                <div className='register'>
+                    Don't have an account yet?
+                    <a className='create-acc' href='/'> Create one here!</a>
+                </div>
+            </div>  
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.header-index {
+    .adds {
+        background: url(img/bannertop.jpg) center center no-repeat;
+        height: 50px;
+        display: block;
+        text-align: center!important;
+    }
+    .wrap-container {
+        background: url(img/images-green.jpg);
+        // background-repeat: no-repeat;
+        background-size: 101% 100%;
+        // box-shadow: 0 6px 12px 0 rgb(0 0 0 / 5%);
+        padding-bottom: 20px;
+        // 
+
+        .logo {
+            border-radius: 15px;
+            margin-left: 350px;
+            border: 0 none;
+            max-width: 100%;
+            height: auto;
+        }   
+    }
+    
+}
+
