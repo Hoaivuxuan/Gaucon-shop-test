@@ -22,7 +22,15 @@ let handleUserLogin = (email, password) => {
         // user exist
         // compare password
         let user = await db.User.findOne({
-          attributes: ["email", "roleId", "address", "password", "name"],
+          attributes: [
+            "id",
+            "email",
+            "roleId",
+            "address",
+            "password",
+            "name",
+            "phonenumber",
+          ],
           where: { email: email },
           raw: true,
         });
@@ -100,30 +108,108 @@ let getAllUsers = (userId) => {
 };
 
 let createNewAccount = (data) => {
+  // return new Promise(async (resolve, reject) => {
+  //   try {
+  //     let userData = {};
+  //     let check = await checkUserEmail(data.email);
+  //     if (check === true) {
+  //       // resolve({
+  //       //   errCode: 1,
+  //       //   userData.errMessage =  "Email đã tồn tại!",
+  //       // });
+  //       userData.errMessage = "Email đã tồn tại!";
+  //     } else {
+  //       let hashPasswordFromBcrypt = await hashUserPassword(data.password);
+  //       await db.User.create({
+  //         email: data.email,
+  //         password: hashPasswordFromBcrypt,
+  //         name: data.name,
+  //         phonenumber: data.phonenumber,
+  //         address: data.address,
+  //         roleId: data.roleId === "1" ? true : false,
+  //       });
+
+  //       resolve(userData);
+  //     }
+  //   } catch (e) {
+  //     reject(e);
+  //   }
+  // });
+  //
   return new Promise(async (resolve, reject) => {
     try {
-      let userData = {};
-      let check = await checkUserEmail(data.email);
-      if (check === true) {
-        // resolve({
-        //   errCode: 1,
-        //   userData.errMessage =  "Email đã tồn tại!",
-        // });
-        userData.errMessage = "Email đã tồn tại!";
-      }
-      else {
-        let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-        await db.User.create({
-          email: data.email,
-          password: hashPasswordFromBcrypt,
-          name: data.name,
-          phonenumber: data.phonenumber,
-          address: data.address,
-          roleId: data.roleId === "1" ? true : false,
+      if (!data) {
+        return resolve({
+          errCode: 1,
+          errMessage: "Missing input value!",
         });
-
-        resolve(userData);
       }
+      if (!data.name || !data.email || !data.password) {
+        return resolve({
+          errCode: 1,
+          errMessage: "Missing input value!",
+        });
+      }
+      let check = await checkUserEmail(data.email);
+      if (check) {
+        return resolve({
+          errCode: 2,
+          errMessage: "Your email is already in use",
+        });
+      }
+      let hashPasswordFromBcrypt = await hashUserPassword(data.password);
+      if (!data.id) {
+        data.id = 3;
+      }
+      await db.User.create({
+        email: data.email,
+        password: hashPasswordFromBcrypt,
+        name: data.name,
+        phonenumber: data.phonenumber,
+        address: data.address,
+        roleId: data.roleId === "1" ? true : false,
+      });
+      return resolve({
+        errCode: 0,
+        message: "Create account successfully!",
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let updateAccountData = (data) => {
+  //
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.id) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing input parameter",
+        });
+      }
+      let user = await db.User.findOne({
+        where: { id: data.id },
+        raw: false,
+      });
+      if (!user) {
+        resolve({
+          errCode: 2,
+          errMessage: "Account not found!",
+        });
+      }
+      user.id = data.id ? data.id : user.id;
+      user.name = data.name ? data.name : user.name;
+      user.address = data.address ? data.address : user.address;
+      user.phonenumber = data.phonenumber ? data.phonenumber : user.phonenumber;
+      //
+      user.save();
+      // let accounts = await db.Account.findAll();
+      resolve({
+        errCode: 0,
+        message: "Update Account Successfully!",
+      });
     } catch (e) {
       reject(e);
     }
@@ -134,4 +220,5 @@ module.exports = {
   handleUserLogin: handleUserLogin,
   getAllUsers: getAllUsers,
   createNewAccount: createNewAccount,
+  updateAccountData: updateAccountData,
 };

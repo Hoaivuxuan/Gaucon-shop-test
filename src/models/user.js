@@ -2,7 +2,16 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate(models) {}
+    static associate(models) {
+      User.belongsTo(models.Authority, {
+        foreignKey: "roleId",
+        as: "DataAuth",
+      });
+      User.hasMany(models.Bill, {
+        foreignKey: "idAcc",
+        as: "DataAccAndBill",
+      });
+    }
   }
   User.init(
     {
@@ -16,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
+      tableName: "Users",
     }
   );
   return User;

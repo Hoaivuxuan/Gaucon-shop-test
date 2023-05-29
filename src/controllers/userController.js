@@ -39,25 +39,36 @@ let handleGetAllUsers = async (req, res) => {
 };
 
 let handleCreateNewAccount = async (req, res) => {
-  // let name = req.body.name;
-  // let phonenumber = req.body.phonenumber;
-  // let email = req.body.email;
-  // let password = req.body.password;
-  // if (!email || !password || !name || !phonenumber) {
-  //   return res.status(500).json({
-  //     errCode: 1,
-  //     message: "inputs empty!",
-  //   });
-  // }
-  let userData = await userService.createNewAccount(req.body);
-  // console.log(message);
-  return res.status(200).json({
-    message: userData.errMessage,
-  });
+  try {
+    let data = req.body;
+    let response = await userService.createNewAccount(data);
+    return res.status(200).json(response);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server!",
+    });
+  }
+};
+
+let handleEditAccount = async (req, res) => {
+  try {
+    let data = req.body;
+    let response = await userService.updateAccountData(data);
+    return res.status(200).json(response);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!",
+    });
+  }
 };
 
 module.exports = {
   handleLogin: handleLogin,
   handleGetAllUsers: handleGetAllUsers,
   handleCreateNewAccount: handleCreateNewAccount,
+  handleEditAccount: handleEditAccount,
 };
